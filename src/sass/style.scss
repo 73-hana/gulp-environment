@@ -4,3 +4,35 @@ html {
     color: red;
   }
 }
+
+.section {
+  // タイトル
+  &__title {
+    &--h2 {
+      font-size: 20px;
+      padding: 10px;
+      color: #666;
+      position: retative;
+      border-radius: 5px;
+      transition: all 500ms 0s ease;
+      margin: 0 0 20px;
+      opacity: 1;
+      width: 100%;
+      border-bottom: 1px solid #333;
+      background: #eee;
+      display: flex;
+      height: auto;
+      max-width: 600px;
+      text-align: center;
+      line-height: 1.25;
+      -ms-border-radius: 5px;   
+    }
+    &--h3 {
+      font-size: 1.5rem;
+    }
+  }
+  // パラグラフ
+  &__paragraph {
+    font-size: 1rem;
+  }
+}
