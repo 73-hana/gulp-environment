@@ -3,8 +3,6 @@ const sass = require('gulp-sass')(require('sass'));
 const bs = require('browser-sync').create();
 const ejs = require('gulp-ejs');
 const rename = require('gulp-rename');
-const postcss = require('gulp-postcss');
-const cssDeclarationSorter = require('css-declaration-sorter');
 
 // launch browser-sync
 bs.init({
@@ -14,16 +12,9 @@ bs.init({
 });
 
 function compileSass() {
-  // postcssプラグイン
-  const plugins = [
-    cssDeclarationSorter({
-      order: 'alphabetical'
-    }),
-  ];
   return gulp
     .src('src/sass/**/*.scss')
     .pipe(sass().on('error', sass.logError))
-    .pipe(postcss(plugins))
     .pipe(gulp.dest('dist/css'))
     .pipe(bs.stream());
 }
