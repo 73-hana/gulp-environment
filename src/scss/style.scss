@@ -1,0 +1,12 @@
+code {
+  &.block {
+    display: block;
+    background-color: #aaa;
+    border-radius: 10px;
+  }
+
+  &.inline {
+    display: inline;
+    background-color: #ddd;
+  }
+}
