@@ -1,14 +1,31 @@
 {
-  "css.validate": false,
-  "scss.validate": false,
-  "[scss]": {
-    "editor.formatOnSave": false,
+  "markuplint.targetLanguages": ["html"],
+  "[javascript]": {
     "editor.codeActionsOnSave": {
-      "source.fixAll": true
+      "source.fixAll": "never",
+      "source.fixAll.eslint": "explicit"
     }
   },
-  "stylelint.validate": [
-    "css",
-    "scss"
-  ]
+  "css.validate": false,
+  "scss.validate": false,
+  "[css]": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll": "never",
+      "source.fixAll.stylelint": "always"
+    }
+  },
+  "[scss]": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll": "never",
+      "source.fixAll.stylelint": "always"
+    }
+  },
+  "stylelint.snippet": ["css", "scss"],
+  "stylelint.validate": ["css", "scss"],
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnType": false,
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
 }
