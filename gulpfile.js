@@ -1,35 +1,40 @@
-const gulp = require('gulp');
-const sass = require('gulp-sass')(require('sass'));
-const bs = require('browser-sync').create();
-const ejs = require('gulp-ejs');
-const rename = require('gulp-rename');
+const gulp = require("gulp");
+const browserSync = require("browser-sync").create();
+const sass = require("gulp-sass")(require("sass"));
 
-// launch browser-sync
-bs.init({
-  server: {
-    baseDir: 'dist'
-  }
-});
+function launchBrowserSync(cb) {
+  browserSync.init({
+    server: {
+      baseDir: "dist",
+    },
+  });
+  cb();
+}
 
+function copyHtml() {
+  return gulp
+    .src("src/**/*.html")
+    .pipe(gulp.dest("dist"))
+    .pipe(browserSync.reload({ stream: true }));
+}
+
+// sassのコンパイル
 function compileSass() {
   return gulp
-    .src('src/sass/**/*.scss')
-    .pipe(sass().on('error', sass.logError))
-    .pipe(gulp.dest('dist/css'))
-    .pipe(bs.stream());
+    .src("src/scss/**/*.scss")
+    .pipe(sass())
+    .pipe(gulp.dest("dist/css"))
+    .pipe(browserSync.stream());
 }
 
-function compileEjs() {
-  return gulp
-    .src('src/**/*.ejs')
-    .pipe(ejs({ ext: '.html' }).on('error', console.log))
-    .pipe(rename({ extname: '.html' }))
-    .pipe(gulp.dest('dist'))
+function watchFiles() {
+  gulp.watch("src/**/*.html", copyHtml);
+  gulp.watch("src/scss/**/*.scss", compileSass);
 }
 
-gulp.watch('src/**/*.ejs', compileEjs);
-gulp.watch('src/sass/**/*.scss', compileSass);
-// EJSがコンパイルされた後にブラウザをリロード
-gulp.watch('dist/**/*.html').on('change', bs.reload);
-
-exports.default = gulp.series(compileSass, compileEjs);
+exports.default = gulp.series(
+  copyHtml,
+  compileSass,
+  launchBrowserSync,
+  watchFiles,
+);
