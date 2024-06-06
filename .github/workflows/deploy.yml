@@ -24,4 +24,4 @@ jobs:
         with:
           ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: gh-pages
-          FOLDER: ./dist # コンパイルしたファイルが格納されているディレクトリを指定する
+          FOLDER: dist # コンパイルしたファイルが格納されているディレクトリを指定する
