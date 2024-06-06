@@ -1,0 +1,20 @@
+// color
+$color1: #799351;
+$color2: #a1dd70;
+$color3: #f6eec9;
+$color4: #ee4e4e;
+$color5: #3e4236;
+
+// google fonts
+@import "https://fonts.googleapis.com/css2?family=Sawarabi+Mincho&display=swap";
+@import "https://fonts.googleapis.com/css2?family=Sawarabi+Gothic&display=swap";
+
+$serif: "Sawarabi Mincho", serif;
+$san-serif: "Sawarabi Gothic", sans-serif;
+
+// breakpoints
+$xl: 1200px;
+$lg: 1024px;
+$md: 768px;
+$sm: 540px;
+$xs: 375px;

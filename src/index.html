@@ -7,69 +7,37 @@
     <link rel="stylesheet" href="./css/style.css" />
   </head>
   <body>
-    <header>
-      <div class="container">
-        <p>Gulpの開発環境</p>
-        <nav>
-          <ol>
-            <li>Gulpのインストール</li>
-            <li>Browser-Syncのインストール</li>
-            <li>gulp-sassのインストール</li>
-            <li>
-              Prettierのインストール<br />
-              <ol>
-                <li>npm packageのインストール</li>
-                <li>VSCode拡張機能のインストール</li>
-              </ol>
-            </li>
-            <li>
-              Stylelintのインストール<br />
-              <ol>
-                <li>npm packageのインストール</li>
-                <li>VSCode拡張機能のインストール</li>
-              </ol>
-            </li>
-            <li>
-              ESLintのインストール<br />
-              <ol>
-                <li>npm packageのインストール</li>
-                <li>VSCode拡張機能のインストール</li>
-              </ol>
-            </li>
-            <li>
-              Markuplintのインストール<br />
-              <ol>
-                <li>npm packageのインストール</li>
-                <li>VSCode拡張機能のインストール</li>
-              </ol>
-            </li>
-          </ol>
-        </nav>
-      </div>
+    <header class="header">
+      <p class="header__logo">Gulpの開発環境</p>
     </header>
     <main>
       <section class="hero">
-        <h1>Gulpの開発環境<span>HTML/CSS/JSのマークアップを安全に</span></h1>
-        <ul>
+        <h1 class="hero__title">
+          Gulpの開発環境<br /><span>HTML/CSS/JSのマークアップを安全に</span>
+        </h1>
+        <ul class="hero__list">
           <li>コーディングのエラーをすぐ確認できる</li>
           <li>コーディングルールへの意識を最小限に減らせる</li>
           <li>Scssを使って楽なスタイリングができる</li>
           <li>ブラウザでの確認が容易にできる</li>
         </ul>
       </section>
-      <section>
-        <h2>1. Gulpのインストール</h2>
+      <section class="section">
+        <h2 class="section__title">1. Gulpのインストール</h2>
+        <pre><code
+        class="section__block-code">npm init -y<br />npm install -D gulp</code></pre>
         <p>
-          <code class="block">npm init -y<br />npm install -D gulp</code>
+          <code class="section__inline-code">./gulpfile.js</code
+          >を作成しておきます。
         </p>
-        <p><code class="inline">./gulpfile.js</code>を作成しておきます。</p>
         <p>
-          <code class="inline">./gulpfile.js</code>に、<code class="inline"
+          <code class="section__inline-code">./gulpfile.js</code>に、<code
+            class="section__inline-code"
             >./src</code
-          >ディレクトリのHTMLを<code class="inline">./dist</code
+          >ディレクトリのHTMLを<code class="section__inline-code">./dist</code
           >にコピーするタスクを追加します。
         </p>
-        <pre><code class="block">const gulp = require('gulp');
+        <pre><code class="section__block-code">const gulp = require('gulp');
 
 function copyHtml() {
   return gulp
@@ -84,14 +52,14 @@ function watchFiles() {
 
 exports.default = gulp.series(copyHtml, watchFiles);</code></pre>
       </section>
-      <section>
-        <h2>2. Browser-Syncのインストール</h2>
-        <p><code class="block">npm install -D browser-sync</code></p>
+      <section class="section">
+        <h2 class="section__title">2. Browser-Syncのインストール</h2>
+        <pre><code class="section__block-code">npm install -D browser-sync</code></pre>
         <p>
-          <code class="inline">./gulpfile.js</code
+          <code class="section__inline-code">./gulpfile.js</code
           >に、Browser-Syncのサーバ設定を記述します。
         </p>
-        <pre><code class="block">const gulp = require('gulp');
+        <pre><code class="section__block-code">const gulp = require('gulp');
 const browserSync = require('browser-sync');
 
 function launchBrowserSync(cb) {
@@ -116,17 +84,17 @@ function watchFiles() {
 
 exports.default = gulp.series(copyHtml, launchBrowserSync, watchFiles);</code></pre>
         <p>サーバを起動します。</p>
-        <p><code class="block">npx gulp</code></p>
+        <pre><code class="section__block-code">npx gulp</code></pre>
       </section>
-      <section>
-        <h2>3. gulp-sassのインストール</h2>
-        <p><code class="block">npm insatll -D sass gulp-sass</code></p>
+      <section class="section">
+        <h2 class="section__title">3. gulp-sassのインストール</h2>
+        <pre><code class="section__block-code">npm insatll -D sass gulp-sass</code></pre>
         <p>
-          <code class="inline">./gulpfile.js</code
+          <code class="section__inline-code">./gulpfile.js</code
           >に、scssをコンパイルするタスクを追加します。
         </p>
 
-        <pre><code class="block">const gulp = require('gulp');
+        <pre><code class="section__block-code">const gulp = require('gulp');
 const browserSync = require('browser-sync');
 const sass = require('gulp-sass')(require('sass'));
 
@@ -161,21 +129,23 @@ function watchFiles() {
 
 exports.default = gulp.series(copyHtml, compileSass, launchBrowserSync, watchFiles);</code></pre>
       </section>
-      <section>
-        <h2>4. Prettierのインストール</h2>
-        <h3>4.1. npm packageのインストール</h3>
-        <p><code class="block">npm install -D prettier</code></p>
+      <section class="section">
+        <h2 class="section__title">4. Prettierのインストール</h2>
+        <h3 class="section__subtitle">4.1. npm packageのインストール</h3>
+        <pre><code class="section__block-code">npm install -D prettier</code></pre>
         <p>
-          <code class="inline">./.prettierrc</code
+          <code class="section__inline-code">./.prettierrc</code
           >ファイルを作成します。デフォルト設定を使うため、空ファイルのままにします。
         </p>
-        <h3>4.2. VSCode拡張機能のインストール&設定</h3>
+        <h3 class="section__subtitle">
+          4.2. VSCode拡張機能のインストール&設定
+        </h3>
         <p>VSCodeで拡張機能をインストールします</p>
         <p>
-          <code class="inline">./.vscode/settings.json</code
+          <code class="section__inline-code">./.vscode/settings.json</code
           >を作成し、保存時に自動でフォーマットが実行されるようにします。
         </p>
-        <pre><code class="block">{
+        <pre><code class="section__block-code">{
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnType": false,
@@ -184,26 +154,22 @@ exports.default = gulp.series(copyHtml, compileSass, launchBrowserSync, watchFil
   }
 }</code></pre>
       </section>
-      <section>
-        <h2>5. Stylelintのインストール</h2>
-        <h3>5.1. npm packageのインストール</h3>
+      <section class="section">
+        <h2 class="section__title">5. Stylelintのインストール</h2>
+        <h3 class="section__subtitle">5.1. npm packageのインストール</h3>
+        <pre><code class="section__block-code">npm insta ll -D stylelint stylelint-config-standard-scss</code></pre>
         <p>
-          <code class="block"
-            >npm insta ll -D stylelint stylelint-config-standard-scss</code
-          >
-        </p>
-        <p>
-          <code class="inline">./.stylelintrc.json</code
+          <code class="section__inline-code">./.stylelintrc.json</code
           >を作成し、インストールした拡張設定ファイルを指定します。
         </p>
 
-        <pre><code class="block">{
+        <pre><code class="section__block-code">{
   "extends": "stylelint-config-standar-scss"
 }</code></pre>
-
-        <h3>5.2. VSCode拡張機能のインストール&設定</h3>
-
-        <pre><code class="block">{
+        <h3 class="section__subtitle">
+          5.2. VSCode拡張機能のインストール&設定
+        </h3>
+        <pre><code class="section__block-code">{
   "css.validate": false,
   "scss.validate": false,
   "[css]": {
@@ -226,22 +192,24 @@ exports.default = gulp.series(copyHtml, compileSass, launchBrowserSync, watchFil
   }
 }</code></pre>
       </section>
-      <section>
-        <h2>6. ESLintのインストール</h2>
-        <h3>6.1. npm packageのインストール</h3>
-        <p><code class="block">npm install -D eslint @eslint/js </code></p>
+      <section class="section">
+        <h2 class="section__title">6. ESLintのインストール</h2>
+        <h3 class="section__subtitle">6.1. npm packageのインストール</h3>
+        <pre><code class="section__block-code">npm install -D eslint @eslint/js </code></pre>
         <p>
-          <code class="inline">./eslint.config.js</code>を作成し設定します。
+          <code class="section__inline-code">./eslint.config.js</code
+          >を作成し設定します。
         </p>
 
-        <pre><code class="block">import js from "@eslint/js";
+        <pre><code class="section__block-code">import js from "@eslint/js";
 
 export default [js.configs.recommended];</code></pre>
 
-        <h3>6.2. VSCode拡張機能のインストール&設定</h3>
+        <h3 class="section__subtitle">
+          6.2. VSCode拡張機能のインストール&設定
+        </h3>
 
-        <pre><code class="block">
-{
+        <pre><code class="section__block-code">{
   "editor.codeActionsOnSave": {
     "source.fixAll": "always"
   },
@@ -257,20 +225,23 @@ export default [js.configs.recommended];</code></pre>
   }
 }</code></pre>
       </section>
-      <section>
-        <h2>7. Markuplintのインストール</h2>
-        <h3>7.1. npm packageのインストール</h3>
-        <p><code class="block">npm install -D markuplint</code></p>
+      <section class="section">
+        <h2 class="section__title">7. Markuplintのインストール</h2>
+        <h3 class="section__subtitle">7.1. npm packageのインストール</h3>
+        <pre><code class="section__block-code">npm install -D markuplint</code></pre>
         <p>
-          <code class="inline">./.markuplintrc</code>ファイルを作成し設定します
+          <code class="section__inline-code">./.markuplintrc</code
+          >ファイルを作成し設定します
         </p>
-        <pre><code class="block">{
+        <pre><code class="section__block-code">{
   "extends": [
     "markuplint:recommended"
   ]
 }</code></pre>
-        <h3>7.2. VSCode拡張機能のインストール&設定</h3>
-        <pre><code class="block">{
+        <h3 class="section__subtitle">
+          7.2. VSCode拡張機能のインストール&設定
+        </h3>
+        <pre><code class="section__block-code">{
   "markuplint.targetLanguages": ["html"],
   "[javascript]": {
     "editor.codeActionsOnSave": {
@@ -302,20 +273,23 @@ export default [js.configs.recommended];</code></pre>
   }
 }</code></pre>
       </section>
-      <section>
-        <h2>マークアップの注意</h2>
+      <section class="section">
+        <h2 class="section__title">マークアップの注意</h2>
         <ul>
           <li>
             <p>
-              スタイルシートのインポートは、<code class="inline">*.scss</code
-              >ではなく<code class="inline">*.css</code>にする。
+              スタイルシートのインポートは、<code class="section__inline-code"
+                >*.scss</code
+              >ではなく<code class="section__inline-code">*.css</code>にする。
             </p>
           </li>
         </ul>
       </section>
     </main>
-    <footer>
-      <small>2024 ushima09. All right reserved.</small>
+    <footer class="footer">
+      <small class="footer__copyright"
+        >2024 ushima09. All right reserved.</small
+      >
     </footer>
   </body>
 </html>

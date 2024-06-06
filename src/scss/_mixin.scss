@@ -1,0 +1,32 @@
+@use "variables";
+
+// media query
+@mixin xl {
+  @media screen and (max-width: variables.$xl) {
+    @content;
+  }
+}
+
+@mixin lg {
+  @media screen and (max-width: variables.$lg) {
+    @content;
+  }
+}
+
+@mixin md {
+  @media screen and (max-width: variables.$md) {
+    @content;
+  }
+}
+
+@mixin sm {
+  @media screen and (max-width: variables.$sm) {
+    @content;
+  }
+}
+
+@mixin xs {
+  @media screen and (max-width: variables.$xs) {
+    @content;
+  }
+}

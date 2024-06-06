@@ -1,0 +1,47 @@
+@use "variables";
+@use "mixin";
+
+html {
+  font-size: 16px !important;
+
+  @include mixin.sm {
+    font-size: 12px !important;
+  }
+
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: variables.$san-serif;
+  color: variables.$color5;
+  font-size: 1rem;
+  line-height: 1.8;
+  letter-spacing: 0.2rem;
+  background-color: variables.$color3;
+  margin: 0;
+  padding: 0;
+}
+
+main {
+  padding-right: 10px;
+  padding-left: 10px;
+  max-width: 960px;
+  margin: auto;
+}
+
+.sp {
+  display: none;
+
+  @include mixin.sm {
+    display: block;
+  }
+}
+
+.pc {
+  display: block;
+
+  @include mixin.sm {
+    display: none;
+  }
+}
