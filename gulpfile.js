@@ -37,3 +37,4 @@ exports.default = gulp.series(
   launchBrowserSync,
   watchFiles,
 );
+exports.build = gulp.parallel(copyHtml, compileSass);
