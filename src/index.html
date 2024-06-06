@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Gulpの開発環境 | HTML/CSS/JSの記述を簡単に</title>
+    <title>Gulpの開発環境 | HTML/CSS/JSのマークアップを安全に</title>
     <link rel="stylesheet" href="./css/style.css" />
   </head>
   <body>
@@ -11,19 +11,50 @@
       <div class="container">
         <p>Gulpの開発環境</p>
         <nav>
-          <li>見出し</li>
+          <ol>
+            <li>Gulpのインストール</li>
+            <li>Browser-Syncのインストール</li>
+            <li>gulp-sassのインストール</li>
+            <li>
+              Prettierのインストール<br />
+              <ol>
+                <li>npm packageのインストール</li>
+                <li>VSCode拡張機能のインストール</li>
+              </ol>
+            </li>
+            <li>
+              Stylelintのインストール<br />
+              <ol>
+                <li>npm packageのインストール</li>
+                <li>VSCode拡張機能のインストール</li>
+              </ol>
+            </li>
+            <li>
+              ESLintのインストール<br />
+              <ol>
+                <li>npm packageのインストール</li>
+                <li>VSCode拡張機能のインストール</li>
+              </ol>
+            </li>
+            <li>
+              Markuplintのインストール<br />
+              <ol>
+                <li>npm packageのインストール</li>
+                <li>VSCode拡張機能のインストール</li>
+              </ol>
+            </li>
+          </ol>
         </nav>
       </div>
     </header>
     <main>
       <section class="hero">
-        <h1>
-          Gulpの開発環境<span>HTML/SCSS/JSを安全にマークアップできる環境</span>
-        </h1>
+        <h1>Gulpの開発環境<span>HTML/CSS/JSのマークアップを安全に</span></h1>
         <ul>
-          <li>エラーを静的にチェックできる</li>
-          <li>複数人で開発しても記述揺れが少ない</li>
-          <li>ブラウザで表示確認ができる</li>
+          <li>コーディングのエラーをすぐ確認できる</li>
+          <li>コーディングルールへの意識を最小限に減らせる</li>
+          <li>Scssを使って楽なスタイリングができる</li>
+          <li>ブラウザでの確認が容易にできる</li>
         </ul>
       </section>
       <section>
@@ -31,15 +62,14 @@
         <p>
           <code class="block">npm init -y<br />npm install -D gulp</code>
         </p>
-        <p><code class="inline">./src</code>ディレクトリを作成しておきます。</p>
+        <p><code class="inline">./gulpfile.js</code>を作成しておきます。</p>
         <p>
-          <code>gulpfile.js</code
-          >で、<code>./src</code>ディレクトリのHTMLファイルを<s>./dist</s>にコピーするタスクを記述します。
+          <code class="inline">./gulpfile.js</code>に、<code class="inline"
+            >./src</code
+          >ディレクトリのHTMLを<code class="inline">./dist</code
+          >にコピーするタスクを追加します。
         </p>
-        <p>
-          <code>
-            <pre>
-const gulp = require('gulp');
+        <pre><code class="block">const gulp = require('gulp');
 
 function copyHtml() {
   return gulp
@@ -48,65 +78,55 @@ function copyHtml() {
     .pipe(browserSync.reload({ stream: true }));
 }
 
-// ファイル監視
 function watchFiles() {
-  // htmlファイルをdistに移動
   gulp.watch('src/**/*.html', copyHtml);
 }
 
-exports.default = gulp.series(copyHtml, watchFiles);
-</pre
-            >
-          </code>
-        </p>
+exports.default = gulp.series(copyHtml, watchFiles);</code></pre>
       </section>
       <section>
         <h2>2. Browser-Syncのインストール</h2>
-        <p><code>npm install -D browser-sync</code></p>
-        <p>gulpfile.jsでBrowser-syncサーバを設定します。</p>
+        <p><code class="block">npm install -D browser-sync</code></p>
         <p>
-          <code>
-            <pre>
-        const gulp = require('gulp');
-        const browserSync = require('browser-sync');
-        
-        // browser-syncの起動
-        function launchBrowserSync(cb) {
-          browserSync.init({
-            server: {
-              baseDir: 'dist'
-            }
-          });
-          cb();
-        }
-        
-        function copyHtml() {
-          return gulp
-            .src('src/**/*.html')
-            .pipe(gulp.dest('dist'))
-            .pipe(browserSync.reload({ stream: true }));
-        }
-        
-        // ファイル監視
-        function watchFiles() {
-          // htmlファイルをdistに移動
-          gulp.watch('src/**/*.html', copyHtml);
-        }
-        
-        exports.default = gulp.series(copyHtml, launchBrowserSync, watchFiles);
-        </pre
-            >
-          </code>
+          <code class="inline">./gulpfile.js</code
+          >に、Browser-Syncのサーバ設定を記述します。
         </p>
+        <pre><code class="block">const gulp = require('gulp');
+const browserSync = require('browser-sync');
+
+function launchBrowserSync(cb) {
+  browserSync.init({
+    server: {
+      baseDir: 'dist'
+    }
+  });
+  cb();
+}
+
+function copyHtml() {
+  return gulp
+    .src('src/**/*.html')
+    .pipe(gulp.dest('dist'))
+    .pipe(browserSync.reload({ stream: true }));
+}
+
+function watchFiles() {
+  gulp.watch('src/**/*.html', copyHtml);
+}
+
+exports.default = gulp.series(copyHtml, launchBrowserSync, watchFiles);</code></pre>
+        <p>サーバを起動します。</p>
+        <p><code class="block">npx gulp</code></p>
       </section>
       <section>
         <h2>3. gulp-sassのインストール</h2>
-        <p><code>npm insatll -D sass gulp-sass</code></p>
-        <p>sassをコンパイルするタスクを追加します。</p>
+        <p><code class="block">npm insatll -D sass gulp-sass</code></p>
         <p>
-          <code>
-            <pre>
-        const gulp = require('gulp');
+          <code class="inline">./gulpfile.js</code
+          >に、scssをコンパイルするタスクを追加します。
+        </p>
+
+        <pre><code class="block">const gulp = require('gulp');
 const browserSync = require('browser-sync');
 const sass = require('gulp-sass')(require('sass'));
 
@@ -126,7 +146,6 @@ function copyHtml() {
     .pipe(browserSync.reload({ stream: true }));
 }
 
-// sassのコンパイル
 function compileSass() {
   return gulp
     .src('src/scss/**/*.scss')
@@ -140,176 +159,163 @@ function watchFiles() {
   gulp.watch('src/scss/**/*.scss', compileSass)
 }
 
-exports.default = gulp.series(copyHtml, compileSass, launchBrowserSync, watchFiles);
-      </pre
-            >
-          </code>
-        </p>
+exports.default = gulp.series(copyHtml, compileSass, launchBrowserSync, watchFiles);</code></pre>
       </section>
       <section>
         <h2>4. Prettierのインストール</h2>
         <h3>4.1. npm packageのインストール</h3>
-        <p><code>npm install -D prettier</code></p>
+        <p><code class="block">npm install -D prettier</code></p>
         <p>
-          プロジェクト直下に<code>.prettierrc</code>ファイルを作成します。デフォルト設定を使いたいので、空のままにします。
+          <code class="inline">./.prettierrc</code
+          >ファイルを作成します。デフォルト設定を使うため、空ファイルのままにします。
         </p>
         <h3>4.2. VSCode拡張機能のインストール&設定</h3>
         <p>VSCodeで拡張機能をインストールします</p>
         <p>
-          <code>.vscode/settings.json</code
+          <code class="inline">./.vscode/settings.json</code
           >を作成し、保存時に自動でフォーマットが実行されるようにします。
         </p>
-        <p>
-          <code>
-            <pre>
-{
-            "editor.formatOnSave": true,
-            "editor.defaultFormatter": "esbenp.prettier-vscode",
-            "editor.formatOnType": false,
-            "[json]": {
-              "editor.defaultFormatter": "esbenp.prettier-vscode"
-            }
-          }
-          </pre
-            >
-          </code>
-        </p>
+        <pre><code class="block">{
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnType": false,
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
+}</code></pre>
       </section>
       <section>
         <h2>5. Stylelintのインストール</h2>
         <h3>5.1. npm packageのインストール</h3>
         <p>
-          <code>npm insta ll -D stylelint stylelint-config-standard-scss</code>
+          <code class="block"
+            >npm insta ll -D stylelint stylelint-config-standard-scss</code
+          >
         </p>
         <p>
-          <code class="inline">.stylelintrc.json</code
+          <code class="inline">./.stylelintrc.json</code
           >を作成し、インストールした拡張設定ファイルを指定します。
         </p>
-        <p>
-          <code class="block">
-            <pre>
-{
-              "extends": "stylelint-config-standar-scss"
-            }</pre
-            >
-          </code>
-        </p>
-        <h3>5.2. VSCode拡張機能のインストール&設定</h3>
-        <p>
-          <code>
-            <pre>
-{
-            "css.validate": false,
-            "scss.validate": false,
-            "[css]": {
-              "editor.codeActionsOnSave": {
-                "source.fixAll.stylelint": "always"
-              }
-            },
-            "[scss]": {
-              "editor.codeActionsOnSave": {
-                "source.fixAll.stylelint": "always"
-              }
-            },
-            "stylelint.snippet": ["css", "scss"],
-            "stylelint.validate": ["css", "scss"],
-            "editor.formatOnSave": true,
-            "editor.defaultFormatter": "esbenp.prettier-vscode",
-            "editor.formatOnType": false,
-            "[json]": {
-              "editor.defaultFormatter": "esbenp.prettier-vscode"
-            }
-          }
-          </pre
-            >
-          </code>
-        </p>
-      </section>
-      <section>
-        <h2>4. ESLintのインストール</h2>
-        <h3>4.1. npm packageのインストール</h3>
-        <p><code>npm install -D eslint @eslint/js </code></p>
-        <p><code class="inline">eslint.config.js</code>を作成し設定します。</p>
-        <p>
-          <code>
-            <pre>
-import js from "@eslint/js";
 
-          export default [js.configs.recommended];</pre
-            >
-          </code>
-        </p>
-        <h3>4.2. VSCode拡張機能のインストール&設定</h3>
-        <p>
-          <code>
-            <pre>
-{
-          "editor.codeActionsOnSave": {
-            "source.fixAll": "always"
-          },
-          "css.validate": false,
-          "scss.validate": false,
-          "stylelint.snippet": ["css", "scss"],
-          "stylelint.validate": ["css", "scss"],
-          "editor.formatOnSave": true,
-          "editor.defaultFormatter": "esbenp.prettier-vscode",
-          "editor.formatOnType": false,
-          "[json]": {
-            "editor.defaultFormatter": "esbenp.prettier-vscode"
-          }
-        }
-        </pre
-            >
-          </code>
-        </p>
+        <pre><code class="block">{
+  "extends": "stylelint-config-standar-scss"
+}</code></pre>
+
+        <h3>5.2. VSCode拡張機能のインストール&設定</h3>
+
+        <pre><code class="block">{
+  "css.validate": false,
+  "scss.validate": false,
+  "[css]": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll.stylelint": "always"
+    }
+  },
+  "[scss]": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll.stylelint": "always"
+    }
+  },
+  "stylelint.snippet": ["css", "scss"],
+  "stylelint.validate": ["css", "scss"],
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnType": false,
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
+}</code></pre>
       </section>
       <section>
-        <h2>6. Markuplintのインストール</h2>
+        <h2>6. ESLintのインストール</h2>
         <h3>6.1. npm packageのインストール</h3>
-        <p><code>npm install -D markuplint</code></p>
-        <p>.markuplintrcファイルを作成し設定します</p>
-        <p><code><pre>
-          {
-            "extends": [
-              "markuplint:recommended"
-            ]
-          }
-        </pre></code></p>
+        <p><code class="block">npm install -D eslint @eslint/js </code></p>
+        <p>
+          <code class="inline">./eslint.config.js</code>を作成し設定します。
+        </p>
+
+        <pre><code class="block">import js from "@eslint/js";
+
+export default [js.configs.recommended];</code></pre>
+
         <h3>6.2. VSCode拡張機能のインストール&設定</h3>
-        <p><pre><code>{
-          "markuplint.targetLanguages": ["html"],
-          "[javascript]": {
-            "editor.codeActionsOnSave": {
-              "source.fixAll": "never",
-              "source.fixAll.eslint": "explicit"
-            }
-          },
-          "css.validate": false,
-          "scss.validate": false,
-          "[css]": {
-            "editor.codeActionsOnSave": {
-              "source.fixAll": "never",
-              "source.fixAll.stylelint": "always"
-            }
-          },
-          "[scss]": {
-            "editor.codeActionsOnSave": {
-              "source.fixAll": "never",
-              "source.fixAll.stylelint": "always"
-            }
-          },
-          "stylelint.snippet": ["css", "scss"],
-          "stylelint.validate": ["css", "scss"],
-          "editor.formatOnSave": true,
-          "editor.defaultFormatter": "esbenp.prettier-vscode",
-          "editor.formatOnType": false,
-          "[json]": {
-            "editor.defaultFormatter": "esbenp.prettier-vscode"
-          }
-        }
-        </code></pre></p>
+
+        <pre><code class="block">
+{
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "always"
+  },
+  "css.validate": false,
+  "scss.validate": false,
+  "stylelint.snippet": ["css", "scss"],
+  "stylelint.validate": ["css", "scss"],
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnType": false,
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
+}</code></pre>
+      </section>
+      <section>
+        <h2>7. Markuplintのインストール</h2>
+        <h3>7.1. npm packageのインストール</h3>
+        <p><code class="block">npm install -D markuplint</code></p>
+        <p>
+          <code class="inline">./.markuplintrc</code>ファイルを作成し設定します
+        </p>
+        <pre><code class="block">{
+  "extends": [
+    "markuplint:recommended"
+  ]
+}</code></pre>
+        <h3>7.2. VSCode拡張機能のインストール&設定</h3>
+        <pre><code class="block">{
+  "markuplint.targetLanguages": ["html"],
+  "[javascript]": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll": "never",
+      "source.fixAll.eslint": "explicit"
+    }
+  },
+  "css.validate": false,
+  "scss.validate": false,
+  "[css]": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll": "never",
+      "source.fixAll.stylelint": "always"
+    }
+  },
+  "[scss]": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll": "never",
+      "source.fixAll.stylelint": "always"
+    }
+  },
+  "stylelint.snippet": ["css", "scss"],
+  "stylelint.validate": ["css", "scss"],
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnType": false,
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
+}</code></pre>
+      </section>
+      <section>
+        <h2>マークアップの注意</h2>
+        <ul>
+          <li>
+            <p>
+              スタイルシートのインポートは、<code class="inline">*.scss</code
+              >ではなく<code class="inline">*.css</code>にする。
+            </p>
+          </li>
+        </ul>
       </section>
     </main>
-    <footer></footer>
+    <footer>
+      <small>2024 ushima09. All right reserved.</small>
+    </footer>
   </body>
 </html>

@@ -18,7 +18,6 @@ function copyHtml() {
     .pipe(browserSync.reload({ stream: true }));
 }
 
-// sassのコンパイル
 function compileSass() {
   return gulp
     .src("src/scss/**/*.scss")
