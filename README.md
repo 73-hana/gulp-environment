@@ -1,5 +1,5 @@
-# Gulp環境（自分用のサンプル環境）
+# gulp環境
 
-インストール・設定方法は以下をご確認ください。
+gulp製のコーディング環境です。インストール・設定方法は以下をご確認ください。
 
 https://ushima09.github.io/gulp-environment/
